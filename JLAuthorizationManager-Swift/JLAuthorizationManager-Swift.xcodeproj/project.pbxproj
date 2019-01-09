@@ -12,6 +12,7 @@
 		1B0CC94721E59C5700385C74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B0CC94521E59C5700385C74 /* Main.storyboard */; };
 		1B0CC94921E59C5900385C74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B0CC94821E59C5900385C74 /* Assets.xcassets */; };
 		1B0CC94C21E59C5900385C74 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B0CC94A21E59C5900385C74 /* LaunchScreen.storyboard */; };
+		1B0CC95521E5A19000385C74 /* JLAuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CC95421E5A19000385C74 /* JLAuthorizationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		1B0CC94821E59C5900385C74 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B0CC94B21E59C5900385C74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B0CC94D21E59C5900385C74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B0CC95421E5A19000385C74 /* JLAuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JLAuthorizationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		1B0CC94021E59C5700385C74 /* JLAuthorizationManager-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				1B0CC95321E59FA300385C74 /* JLAuthorizationManager */,
 				1B0CC94121E59C5700385C74 /* AppDelegate.swift */,
 				1B0CC94321E59C5700385C74 /* ViewController.swift */,
 				1B0CC94521E59C5700385C74 /* Main.storyboard */,
@@ -62,6 +65,14 @@
 				1B0CC94D21E59C5900385C74 /* Info.plist */,
 			);
 			path = "JLAuthorizationManager-Swift";
+			sourceTree = "<group>";
+		};
+		1B0CC95321E59FA300385C74 /* JLAuthorizationManager */ = {
+			isa = PBXGroup;
+			children = (
+				1B0CC95421E5A19000385C74 /* JLAuthorizationManager.swift */,
+			);
+			path = JLAuthorizationManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B0CC95521E5A19000385C74 /* JLAuthorizationManager.swift in Sources */,
 				1B0CC94421E59C5700385C74 /* ViewController.swift in Sources */,
 				1B0CC94221E59C5700385C74 /* AppDelegate.swift in Sources */,
 			);
