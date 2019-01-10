@@ -17,13 +17,13 @@ public enum PermissionType {
     case camera
     case audio
     case photoLibrary
+    case cellularNetwork
     case microphone
     case contact
     case events
     case reminder
     case locationInUse
     case locationInAlways
-    case cellularNetwork
     case appleMusic
     case speechRecognizer
     case siri

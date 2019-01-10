@@ -19,7 +19,7 @@ class LocationAlwaysPermission: BasePermission {
         return lm
     }()
     
-    private lazy var defaults:UserDefaults = {
+    private lazy var defaults: UserDefaults = {
         return .standard
     }()
     
@@ -42,7 +42,7 @@ extension LocationAlwaysPermission: Permission {
             return .authorized
         case .authorizedWhenInUse:
             // InUse to Always upgrade case
-            if defaults.bool(forKey: Constants.NSUserDefaultsKeys.requestedInUseToAlwaysUpgrade) {
+            if defaults.bool(forKey: Constants.UserDefaultsKeys.requestedInUseToAlwaysUpgrade) {
                 return .unAuthorized
             }
             return .notDetermined
@@ -62,7 +62,7 @@ extension LocationAlwaysPermission: Permission {
         switch status {
         case .notDetermined:
             if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-                defaults.set(true, forKey: Constants.NSUserDefaultsKeys.requestedInUseToAlwaysUpgrade)
+                defaults.set(true, forKey: Constants.UserDefaultsKeys.requestedInUseToAlwaysUpgrade)
                 defaults.synchronize()
             }
             locationManager.requestAlwaysAuthorization()

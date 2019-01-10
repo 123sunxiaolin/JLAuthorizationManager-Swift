@@ -10,7 +10,7 @@ import Foundation
 
 struct Constants {
     
-    struct NSUserDefaultsKeys {
+    struct UserDefaultsKeys {
         static let requestedInUseToAlwaysUpgrade = "JL_requestedInUseToAlwaysUpgrade"
         static let requestedBluetooth            = "JL_requestedBluetooth"
         static let requestedMotion               = "JL_requestedMotion"
