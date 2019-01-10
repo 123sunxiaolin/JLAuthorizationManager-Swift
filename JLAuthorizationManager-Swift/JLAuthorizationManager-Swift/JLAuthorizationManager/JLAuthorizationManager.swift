@@ -20,37 +20,6 @@ import Intents
 import CoreBluetooth
 import Accounts
 
-enum PermissionType {
-    case camera
-    case photoLibrary
-    case microphone
-    case contact
-    case events
-    case reminder
-    case locationInUse
-    case locationInAlways
-    case cellularNetwork
-    case appleMusic
-    case speechRecognizer
-    case siri
-    
-    
-    // TODO
-    case notification
-    
-    // 需要特殊处理的
-    case health
-    case motion
-    case bluetooth
-    
-    // 社交分享
-    case twitter
-    case facebook
-    case sinaWeibo
-    case tencentWeibo
-
-}
-
 typealias PermissionCompletion = (Bool?) -> Void
 
 class JLAuthorizationManager: NSObject {
@@ -126,7 +95,7 @@ extension JLAuthorizationManager {
         let authorizedStatus = PHPhotoLibrary.authorizationStatus()
         if authorizedStatus == .notDetermined {
             
-            PHPhotoLibrary.requestAuthorization { (status) in
+            PHPhotoLibrary.requestAuthorization { status in
                 self.safeAync {
                     completion(status == .authorized)
                 }
@@ -137,15 +106,15 @@ extension JLAuthorizationManager {
     }
     
     private func requestMicroPhonePermission(_ completion: @escaping PermissionCompletion) {
-        let authorizedStatus = AVCaptureDevice.authorizationStatus(for: .audio)
-        if authorizedStatus == .notDetermined {
-            AVCaptureDevice.requestAccess(for: .audio) { (granted) in
+        let authorizedStatus = AVAudioSession.sharedInstance().recordPermission
+        if authorizedStatus == .undetermined {
+            AVAudioSession.sharedInstance().requestRecordPermission { granted in
                 self.safeAync {
                     completion(granted)
                 }
             }
         } else {
-            completion(authorizedStatus == .authorized)
+            completion(authorizedStatus == .granted)
         }
     }
     
