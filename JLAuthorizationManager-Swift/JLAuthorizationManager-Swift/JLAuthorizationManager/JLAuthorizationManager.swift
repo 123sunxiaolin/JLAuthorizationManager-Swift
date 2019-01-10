@@ -13,19 +13,45 @@ import Contacts
 import AddressBook
 import EventKit
 import CoreLocation
+import CoreTelephony
+import MediaPlayer
+import Speech
+import Intents
+import CoreBluetooth
+import Accounts
 
 enum PermissionType {
     case camera
     case photoLibrary
     case microphone
     case contact
-    case calendar
+    case events
+    case reminder
     case locationInUse
     case locationInAlways
+    case cellularNetwork
+    case appleMusic
+    case speechRecognizer
+    case siri
     
+    
+    // TODO
+    case notification
+    
+    // 需要特殊处理的
+    case health
+    case motion
+    case bluetooth
+    
+    // 社交分享
+    case twitter
+    case facebook
+    case sinaWeibo
+    case tencentWeibo
+
 }
 
-typealias PermissionCompletion = (Bool) -> Void
+typealias PermissionCompletion = (Bool?) -> Void
 
 class JLAuthorizationManager: NSObject {
     
@@ -52,13 +78,28 @@ class JLAuthorizationManager: NSObject {
             requestMicroPhonePermission(completion)
         case .contact:
             requestContactPermission(completion)
-        case .calendar:
-            requestCalendarPermission(completion)
+        case .events:
+            requestEventsPermission(completion)
+        case .reminder:
+            requestReminderPermission(completion)
         case .locationInUse:
             requestLocationInUserPermission(completion)
         case .locationInAlways:
             requestLocationAlwaysPermission(completion)
-            
+        case .cellularNetwork:
+            requestCellularNetworkPermission(completion)
+        case .appleMusic:
+            requestAppleMusicPermission(completion)
+        case .speechRecognizer:
+            requestSpeechRecognizerPermission(completion)
+        case .siri:
+            requestSiriPermission(completion)
+        case .bluetooth:
+            requestBluetoothPermission(completion)
+        case .notification:
+            print("需要单独处理！！")
+        default:
+            print("暂不处理")
         }
         
     }
@@ -123,7 +164,20 @@ extension JLAuthorizationManager {
         }
     }
     
-    private func requestCalendarPermission(_ completion: @escaping PermissionCompletion) {
+    private func requestEventsPermission(_ completion: @escaping PermissionCompletion) {
+        let authorizedStatus = EKEventStore.authorizationStatus(for: .event)
+        if authorizedStatus == .notDetermined {
+            EKEventStore().requestAccess(to: .event) { (granted, _) in
+                self.safeAync {
+                    completion(granted)
+                }
+            }
+        } else {
+            completion(authorizedStatus == .authorized)
+        }
+    }
+    
+    private func requestReminderPermission(_ completion: @escaping PermissionCompletion) {
         let authorizedStatus = EKEventStore.authorizationStatus(for: .reminder)
         if authorizedStatus == .notDetermined {
             EKEventStore().requestAccess(to: .event) { (granted, _) in
@@ -167,6 +221,77 @@ extension JLAuthorizationManager {
             completion(authorizedStatus == .authorizedAlways)
         }
     }
+    
+    private func requestCellularNetworkPermission(_ completion: @escaping PermissionCompletion) {
+        let cellularData = CTCellularData()
+        let authorizedState = cellularData.restrictedState
+        if authorizedState == .restrictedStateUnknown {
+            cellularData.cellularDataRestrictionDidUpdateNotifier = { state in
+                self.safeAync {
+                    completion(state == .notRestricted)
+                }
+            }
+        } else {
+            completion(authorizedState == .notRestricted)
+        }
+    }
+    
+    private func requestAppleMusicPermission(_ completion: @escaping PermissionCompletion) {
+        let authorizedStatus = MPMediaLibrary.authorizationStatus()
+        if authorizedStatus == .notDetermined {
+            MPMediaLibrary.requestAuthorization { status in
+                self.safeAync {
+                    completion(status == .authorized)
+                }
+            }
+        } else {
+            completion(authorizedStatus == .authorized)
+        }
+        
+    }
+    
+    private func requestSpeechRecognizerPermission(_ completion: @escaping PermissionCompletion) {
+        let authorizedStatus = SFSpeechRecognizer.authorizationStatus()
+        if authorizedStatus == .notDetermined {
+            SFSpeechRecognizer.requestAuthorization { status in
+                self.safeAync {
+                    completion(status == .authorized)
+                }
+            }
+        } else {
+            completion(authorizedStatus == .authorized)
+        }
+    }
+    
+    private func requestSiriPermission(_ completion: @escaping PermissionCompletion) {
+        guard #available(iOS 10.0, *) else {
+            completion(nil)
+            print("系统版本暂不支持该API")
+            return
+        }
+    
+        let authorizedStatus = INPreferences.siriAuthorizationStatus()
+        if authorizedStatus == .notDetermined {
+            INPreferences.requestSiriAuthorization { status in
+                self.safeAync {
+                    completion(status == .authorized)
+                }
+            }
+        } else {
+            completion(authorizedStatus == .authorized)
+        }
+    }
+    
+    private func requestBluetoothPermission(_ completion: @escaping PermissionCompletion) {
+        let authorizedStatus = CBPeripheralManager.authorizationStatus()
+        if authorizedStatus == .notDetermined {
+            let cbManager = CBCentralManager()
+            cbManager.scanForPeripherals(withServices: nil, options: nil)
+        } else {
+            completion(authorizedStatus == .authorized)
+        }
+    }
+    
 }
 
 // MARK: - CLLocationManagerDelegate
