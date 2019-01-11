@@ -10,12 +10,13 @@ public enum AuthorizedStatus {
     case authorized
     case unAuthorized
     case notDetermined
-    case disabled // unsupport
+    case disabled // unsupported
 }
 
 public enum PermissionType {
     case camera
     case audio
+    case notification
     case photoLibrary
     case cellularNetwork
     case microphone
@@ -29,17 +30,5 @@ public enum PermissionType {
     case siri
     case motion
     case bluetooth
-    
-    // TODO
-    case notification
-    
-    // 需要特殊处理的
     case health
-    
-    // 社交分享
-    case twitter
-    case facebook
-    case sinaWeibo
-    case tencentWeibo
-    
 }

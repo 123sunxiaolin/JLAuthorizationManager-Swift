@@ -6,7 +6,7 @@
 //  Copyright © 2019年 Jacklin. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import CoreTelephony
 
 class CellularNetworkPermission: BasePermission {
