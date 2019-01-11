@@ -32,6 +32,7 @@
 		1B0CC97821E74F1F00385C74 /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CC97721E74F1E00385C74 /* NotificationPermission.swift */; };
 		1B0CC97A21E7758F00385C74 /* BluetoothPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CC97921E7758F00385C74 /* BluetoothPermission.swift */; };
 		1B0CC97C21E7816100385C74 /* MotionPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CC97B21E7816100385C74 /* MotionPermission.swift */; };
+		1B0CC97E21E78E1100385C74 /* HealthPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CC97D21E78E1100385C74 /* HealthPermission.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		1B0CC97721E74F1E00385C74 /* NotificationPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermission.swift; sourceTree = "<group>"; };
 		1B0CC97921E7758F00385C74 /* BluetoothPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPermission.swift; sourceTree = "<group>"; };
 		1B0CC97B21E7816100385C74 /* MotionPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionPermission.swift; sourceTree = "<group>"; };
+		1B0CC97D21E78E1100385C74 /* HealthPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthPermission.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				1B0CC97721E74F1E00385C74 /* NotificationPermission.swift */,
 				1B0CC97921E7758F00385C74 /* BluetoothPermission.swift */,
 				1B0CC97B21E7816100385C74 /* MotionPermission.swift */,
+				1B0CC97D21E78E1100385C74 /* HealthPermission.swift */,
 			);
 			name = Permissions;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B0CC96621E7289700385C74 /* EventsPermission.swift in Sources */,
+				1B0CC97E21E78E1100385C74 /* HealthPermission.swift in Sources */,
 				1B0CC97021E73CB600385C74 /* CellularNetworkPermission.swift in Sources */,
 				1B0CC96121E7215800385C74 /* AudioPermission.swift in Sources */,
 				1B0CC96821E7298500385C74 /* ReminderPermission.swift in Sources */,

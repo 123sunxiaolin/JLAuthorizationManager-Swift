@@ -27,14 +27,14 @@ public enum PermissionType {
     case appleMusic
     case speechRecognizer
     case siri
+    case motion
+    case bluetooth
     
     // TODO
     case notification
     
     // 需要特殊处理的
     case health
-    case motion
-    case bluetooth
     
     // 社交分享
     case twitter
