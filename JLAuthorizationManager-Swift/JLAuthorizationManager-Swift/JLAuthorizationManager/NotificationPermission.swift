@@ -11,9 +11,9 @@ import UserNotifications
 
 protocol NotificationPermissionProtocol: Permission {
     
-    /// For iOS 10.0, async fetch notification permission
+    /// For iOS 10.0, async fetch notification permission.
     ///
-    /// - Parameter handler: return result
+    /// - Parameter handler: return result.
     func asyncFetchAuthorizedStatus(_ handler: @escaping (AuthorizedStatus) -> Void)
 }
 
@@ -27,21 +27,17 @@ class NotificationPermission: BasePermission {
     
     private var currentAuthorizedStatus: AuthorizedStatus = .notDetermined
     
-    /**
-     A timer that fires the event to let us know the user has asked for
-     notifications permission.
-     */
+    ///  A timer that fires the event to let us know the user has asked for notifications permission.
      private var notificationTimer : Timer?
     
-    
-    /// wheather authorzed notification
-    private var isAuthorizedNotification: Bool {
+    /// wheather request notification
+    private var isRequestNotification: Bool {
         get {
             return defaults.bool(forKey: Constants.UserDefaultsKeys.requestedNotifications)
         }
         
         set {
-            defaults.set(isAuthorizedNotification, forKey: Constants.UserDefaultsKeys.requestedBluetooth)
+            defaults.set(isRequestNotification, forKey: Constants.UserDefaultsKeys.requestedBluetooth)
             defaults.synchronize()
         }
     }
@@ -67,11 +63,10 @@ extension NotificationPermission: NotificationPermissionProtocol {
                 settingsType != UIUserNotificationType() {
                 return .authorized
             } else {
-                // 存在问题，
-                if isAuthorizedNotification {
-                    return .authorized
-                } else {
+                if isRequestNotification {
                     return .unAuthorized
+                } else {
+                    return .notDetermined
                 }
             }
             
@@ -174,10 +169,13 @@ extension NotificationPermission {
         
         notificationTimer?.invalidate()
         
-        isAuthorizedNotification = true
+        // mark reuest notification status
+        isRequestNotification = true
         
-        if let completion = self.completion {
-            completion(isAuthorizedNotification)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            if let completion = self.completion {
+                completion(self.authorizedStatus() == .authorized)
+            }
         }
     }
 }
