@@ -21,6 +21,7 @@ module.exports = {
   scopes: [
     {name: 'Authorization'},
     {name: 'photoPermission'},
+    {name: 'notificationPermission'},
   ],
 
   // override the messages, defaults are as follows
