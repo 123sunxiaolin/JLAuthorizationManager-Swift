@@ -36,6 +36,9 @@ extension SpeechRecognizerPermission: Permission {
     }
     
     func requestPermission(_ completion: @escaping AuthorizedCompletion) {
+        let hasSpeechRecognizerKey: Bool = !Bundle.main.object(forInfoDictionaryKey: Constants.InfoPlistKeys.speechRecognizer).isNil
+        assert(hasSpeechRecognizerKey, Constants.InfoPlistKeys.speechRecognizer + " not found in Info.plist.")
+        
         let status = authorizedStatus()
         switch status {
         case .notDetermined:

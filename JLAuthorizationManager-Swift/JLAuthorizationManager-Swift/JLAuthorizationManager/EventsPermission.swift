@@ -36,6 +36,9 @@ extension EventsPermission: Permission {
     }
     
     func requestPermission(_ completion: @escaping AuthorizedCompletion) {
+        let hasEventsKey: Bool = !Bundle.main.object(forInfoDictionaryKey: Constants.InfoPlistKeys.events).isNil
+        assert(hasEventsKey, Constants.InfoPlistKeys.contact + " not found in Info.plist.")
+        
         let status = authorizedStatus()
         switch status {
         case .notDetermined:

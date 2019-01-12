@@ -36,6 +36,9 @@ extension AppleMusicPermission: Permission {
     }
     
     func requestPermission(_ completion: @escaping AuthorizedCompletion) {
+        let hasAppleMusicKey: Bool = !Bundle.main.object(forInfoDictionaryKey: Constants.InfoPlistKeys.appleMusic).isNil
+        assert(hasAppleMusicKey, Constants.InfoPlistKeys.appleMusic + " not found in Info.plist.")
+        
         let status = authorizedStatus()
         switch status {
         case .notDetermined:

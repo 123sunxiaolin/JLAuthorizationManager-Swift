@@ -60,10 +60,10 @@ extension MotionPermission: Permission {
     
     func requestPermission(_ completion: @escaping AuthorizedCompletion) {
         
-        self.completion = completion
         let status = authorizedStatus()
         switch status {
         case .notDetermined:
+            self.completion = completion
             startUpdateMotionStatus()
         default:
             completion(status == .authorized)
@@ -74,9 +74,10 @@ extension MotionPermission: Permission {
 // MARK: - Private
 extension MotionPermission {
     private func startUpdateMotionStatus() {
+        let hasAppleMusicKey: Bool = !Bundle.main.object(forInfoDictionaryKey: Constants.InfoPlistKeys.motion).isNil
+        assert(hasAppleMusicKey, Constants.InfoPlistKeys.motion + " not found in Info.plist.")
+        
         let tmpMotionPermissionStatus = motionPermissionStatus
-        isRequestedMotion = true
-        waitingForMotion = true
         
         let today = Date()
         motionManager.queryActivityStarting(from: today, to: today, to: .main) { [weak self] (_, error) in
@@ -95,5 +96,8 @@ extension MotionPermission {
                 }
             }
         }
+        
+        isRequestedMotion = true
+        waitingForMotion = true
     }
 }

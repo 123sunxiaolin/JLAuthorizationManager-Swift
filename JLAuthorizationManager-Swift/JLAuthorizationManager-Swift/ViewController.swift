@@ -168,7 +168,7 @@ extension ViewController: UITableViewDelegate {
             }
         case .locationInUse:
             let permission = LocationInUsePermission()
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
+            //print("\(type.title) -> status:\(permission.authorizedStatus())")
             permission.requestPermission { granted in
                 print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
             }
@@ -210,17 +210,19 @@ extension ViewController: UITableViewDelegate {
             }
         case .health:
             let runningType = HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)
-            let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount)
-            
+            //let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount)
             let runningSampleType = HKSampleType.quantityType(forIdentifier: .distanceWalkingRunning)
+            //let stepCountSampleType = HKSampleType.quantityType(forIdentifier: .stepCount)
             var typesToShare: Set<HKSampleType> = []
             var typesToRead: Set<HKObjectType> = []
             if let aRunningType = runningType,
-                let aStepCountType = stepCountType,
+                //let aStepCountType = stepCountType,
                 let aRunningSampleType = runningSampleType {
+                //let aStepCountSampleType = stepCountSampleType {
                 typesToRead.insert(aRunningType)
-                typesToRead.insert(aStepCountType)
+                //typesToRead.insert(aStepCountType)
                 typesToShare.insert(aRunningSampleType)
+                //typesToShare.insert(aStepCountSampleType)
             }
             
             let permission = HealthPermission(typesToShare, typesToRead: typesToRead)

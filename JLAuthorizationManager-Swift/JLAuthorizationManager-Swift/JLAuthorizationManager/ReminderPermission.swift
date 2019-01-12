@@ -36,6 +36,9 @@ extension ReminderPermission: Permission {
     }
     
     func requestPermission(_ completion: @escaping AuthorizedCompletion) {
+        let hasReminderKey: Bool = !Bundle.main.object(forInfoDictionaryKey: Constants.InfoPlistKeys.reminder).isNil
+        assert(hasReminderKey, Constants.InfoPlistKeys.reminder + " not found in Info.plist.")
+        
         let status = authorizedStatus()
         switch status {
         case .notDetermined:

@@ -48,6 +48,9 @@ extension ContactPermission: Permission {
     }
     
     func requestPermission(_ completion: @escaping AuthorizedCompletion) {
+        let hasContactKey: Bool = !Bundle.main.object(forInfoDictionaryKey: Constants.InfoPlistKeys.contact).isNil
+        assert(hasContactKey, Constants.InfoPlistKeys.contact + " not found in Info.plist.")
+        
         let status = authorizedStatus()
         switch status {
         case .notDetermined:

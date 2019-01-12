@@ -19,8 +19,18 @@ struct Constants {
     
     struct InfoPlistKeys {
         static let camera                        = "NSCameraUsageDescription"
+        static let microphone                    = "NSMicrophoneUsageDescription"
+        static let photoLibrary                  = "NSPhotoLibraryUsageDescription"
+        static let contact                       = "NSContactsUsageDescription"
+        static let events                        = "NSCalendarsUsageDescription"
+        static let reminder                      = "NSRemindersUsageDescription"
         static let locationWhenInUse             = "NSLocationWhenInUseUsageDescription"
         static let locationAlways                = "NSLocationAlwaysUsageDescription"
+        static let appleMusic                    = "NSAppleMusicUsageDescription"
+        static let speechRecognizer              = "NSSpeechRecognitionUsageDescription"
+        static let motion                        = "NSMotionUsageDescription"
+        static let healthUpdate                  = "NSHealthUpdateUsageDescription"
+        static let healthShare                   = "NSHealthShareUsageDescription"
     }
 }
 

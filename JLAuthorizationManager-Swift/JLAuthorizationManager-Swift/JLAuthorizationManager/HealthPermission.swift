@@ -70,6 +70,13 @@ extension HealthPermission: Permission {
     }
     
     func requestPermission(_ completion: @escaping AuthorizedCompletion) {
+        if self.typesToShare.count > 0 {
+            let hasHealthShareKey: Bool = !Bundle.main.object(forInfoDictionaryKey: Constants.InfoPlistKeys.healthShare).isNil
+            assert(hasHealthShareKey, Constants.InfoPlistKeys.healthShare + " not found in Info.plist.")
+        }
+        let hasHealthKey: Bool = !Bundle.main.object(forInfoDictionaryKey: Constants.InfoPlistKeys.healthUpdate).isNil
+        assert(hasHealthKey, Constants.InfoPlistKeys.healthUpdate + " not found in Info.plist.")
+        
         let status = authorizedStatus()
         switch status {
         case .notDetermined:
