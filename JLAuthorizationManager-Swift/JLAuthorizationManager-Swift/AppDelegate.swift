@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  JLAuthorizationManager-Swift
 //
-//  Created by zhangdi on 2019/1/9.
+//  Created by Jacklin on 2019/1/9.
 //  Copyright © 2019年 Jacklin. All rights reserved.
 //
 
@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
         return true
     }
 

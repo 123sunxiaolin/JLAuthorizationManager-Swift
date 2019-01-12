@@ -18,6 +18,7 @@ struct Constants {
     }
     
     struct InfoPlistKeys {
+        static let camera                        = "NSCameraUsageDescription"
         static let locationWhenInUse             = "NSLocationWhenInUseUsageDescription"
         static let locationAlways                = "NSLocationAlwaysUsageDescription"
     }

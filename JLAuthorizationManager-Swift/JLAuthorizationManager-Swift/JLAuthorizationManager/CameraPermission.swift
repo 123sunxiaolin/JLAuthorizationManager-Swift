@@ -36,6 +36,8 @@ extension CameraPermission: Permission {
     }
     
     func requestPermission(_ completion: @escaping AuthorizedCompletion) {
+        let hasCameraKey: Bool = !Bundle.main.object(forInfoDictionaryKey: Constants.InfoPlistKeys.camera).isNil
+        assert(hasCameraKey, Constants.InfoPlistKeys.locationWhenInUse + " not found in Info.plist.")
         let status = authorizedStatus()
         switch status {
         case .notDetermined:

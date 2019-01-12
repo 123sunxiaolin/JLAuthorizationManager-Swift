@@ -21,7 +21,7 @@ public protocol Permission where Self: BasePermission {
     
 }
 
-public typealias AuthorizedCompletion = (Bool?) -> Void
+public typealias AuthorizedCompletion = (Bool) -> Void
 
 class BasePermission: NSObject {
     
