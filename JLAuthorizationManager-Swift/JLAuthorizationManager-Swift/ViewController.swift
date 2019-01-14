@@ -42,7 +42,7 @@ extension PermissionType {
         case .siri:
             return "Siri"
         case .motion:
-            return "加速仪与陀螺仪/Motion"
+            return "活动与体能训练记录/Motion"
         case .bluetooth:
             return "蓝牙/Bluetooth"
         case .peripheralBluetooth:
@@ -200,7 +200,7 @@ extension ViewController: UITableViewDelegate {
                 print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
             }
         case .motion:
-            let permission = MotionPermission()
+            let permission = MotionPermission.shared
             print("\(type.title) -> status:\(permission.authorizedStatus())")
             permission.requestPermission { granted in
                 print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")

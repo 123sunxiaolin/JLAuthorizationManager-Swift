@@ -9,8 +9,10 @@
 import Foundation
 import CoreMotion
 
+// please use singleton: `shared`
 class MotionPermission: BasePermission {
 
+    static let shared = MotionPermission()
     private var completion: AuthorizedCompletion?
     
     private lazy var defaults: UserDefaults = {
@@ -33,13 +35,10 @@ class MotionPermission: BasePermission {
         }
     }
     
-    /// wheather wait for user to enable or disable bluetooth access or not
-    private var waitingForMotion: Bool = false
-    
     /// Default status for Core Motion Activity
     private var motionPermissionStatus: AuthorizedStatus = .notDetermined
     
-    override init() {
+    private override init() {
         super.init()
     }
 }
@@ -51,11 +50,28 @@ extension MotionPermission: Permission {
     }
     
     func authorizedStatus() -> AuthorizedStatus {
-        if isRequestedMotion {
-            startUpdateMotionStatus()
+        guard CMMotionActivityManager.isActivityAvailable() else {
+            return .disabled
         }
         
-        return motionPermissionStatus
+        if #available(iOS 11.0, *) {
+            let status = CMMotionActivityManager.authorizationStatus()
+            switch status {
+            case .authorized:
+                return .authorized
+            case .restricted, .denied:
+                return .unAuthorized
+            case .notDetermined:
+                return .notDetermined
+            }
+        } else {
+            if isRequestedMotion {
+                startUpdateMotionStatus()
+            }
+            
+            return motionPermissionStatus
+        }
+        
     }
     
     func requestPermission(_ completion: @escaping AuthorizedCompletion) {
@@ -74,23 +90,12 @@ extension MotionPermission: Permission {
 // MARK: - Private
 extension MotionPermission {
     private func startUpdateMotionStatus() {
-        let hasAppleMusicKey: Bool = !Bundle.main.object(forInfoDictionaryKey: Constants.InfoPlistKeys.motion).isNil
-        assert(hasAppleMusicKey, Constants.InfoPlistKeys.motion + " not found in Info.plist.")
         
         let tmpMotionPermissionStatus = motionPermissionStatus
-        
-        let today = Date()
-        motionManager.queryActivityStarting(from: today, to: today, to: .main) { [weak self] (_, error) in
+        requestMotion { [weak self] status in
             
-            if let err = error, err._code == CMErrorMotionActivityNotEntitled.rawValue {
-                self?.motionPermissionStatus = .unAuthorized
-            } else {
-                self?.motionPermissionStatus = .authorized
-            }
-            
-            self?.motionManager.stopActivityUpdates()
+            self?.motionPermissionStatus = status
             if tmpMotionPermissionStatus != self?.motionPermissionStatus {
-                self?.waitingForMotion = false
                 if let completion = self?.completion {
                     completion(self?.motionPermissionStatus == .authorized)
                 }
@@ -98,6 +103,34 @@ extension MotionPermission {
         }
         
         isRequestedMotion = true
-        waitingForMotion = true
+    }
+    
+    private func requestMotion(_ completion: @escaping (AuthorizedStatus) -> Void) {
+        let hasAppleMusicKey: Bool = !Bundle.main.object(forInfoDictionaryKey: Constants.InfoPlistKeys.motion).isNil
+        assert(hasAppleMusicKey, Constants.InfoPlistKeys.motion + " not found in Info.plist.")
+        
+        let today = Date()
+        motionManager.queryActivityStarting(from: today, to: today, to: .main) { [weak self] (_, error) in
+            
+            self?.motionManager.stopActivityUpdates()
+            
+            var status: AuthorizedStatus
+            
+            if let err = error {
+                if err._code == CMErrorMotionActivityNotAuthorized.rawValue {
+                    status = .unAuthorized
+                } else if err._code == CMErrorMotionActivityNotAvailable.rawValue {
+                    status = .disabled
+                } else {
+                    status = .authorized
+                }
+            } else {
+                status = .authorized
+            }
+            
+            self?.safeAync {
+                completion(status)
+            }
+        }
     }
 }
