@@ -210,6 +210,9 @@
 							com.apple.HealthKit = {
 								enabled = 1;
 							};
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
 							com.apple.Siri = {
 								enabled = 1;
 							};

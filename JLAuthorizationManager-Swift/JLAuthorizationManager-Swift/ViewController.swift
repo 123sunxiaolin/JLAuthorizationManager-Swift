@@ -167,13 +167,13 @@ extension ViewController: UITableViewDelegate {
                 print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
             }
         case .locationInUse:
-            let permission = LocationInUsePermission()
-            //print("\(type.title) -> status:\(permission.authorizedStatus())")
+            let permission = LocationInUsePermission.shared
+            print("\(type.title) -> status:\(permission.authorizedStatus())")
             permission.requestPermission { granted in
                 print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
             }
         case .locationInAlways:
-            let permission = LocationAlwaysPermission()
+            let permission = LocationAlwaysPermission.shared
             print("\(type.title) -> status:\(permission.authorizedStatus())")
             permission.requestPermission { granted in
                 print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")

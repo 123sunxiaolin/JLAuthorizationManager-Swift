@@ -35,7 +35,7 @@
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>App需要您的同意,才能在使用健康更新数据</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>App需要您的同意,才能始终访问位置</string>
+	<string>App需要您的同意,才能在访问位置</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>App需要您的同意,才能始终访问位置</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

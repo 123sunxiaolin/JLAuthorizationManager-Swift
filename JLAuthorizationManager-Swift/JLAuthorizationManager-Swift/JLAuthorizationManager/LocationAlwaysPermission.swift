@@ -9,8 +9,10 @@
 import Foundation
 import CoreLocation
 
+// please use singleton: `shared`
 class LocationAlwaysPermission: BasePermission {
     
+    static let shared = LocationAlwaysPermission()
     private var completion: AuthorizedCompletion?
     
     private lazy var locationManager: CLLocationManager = {
@@ -23,7 +25,7 @@ class LocationAlwaysPermission: BasePermission {
         return .standard
     }()
     
-    override init() {
+    private override init() {
         super.init()
     }
 }

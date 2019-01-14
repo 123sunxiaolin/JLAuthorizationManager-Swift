@@ -6,18 +6,22 @@
 //  Copyright © 2019年 Jacklin. All rights reserved.
 //
 
+import Foundation
 import CoreLocation
 
+// please use singleton: `shared`
 class LocationInUsePermission: BasePermission {
     
+    static let shared = LocationInUsePermission()
     private var completion: AuthorizedCompletion?
+    
     private lazy var locationManager: CLLocationManager = {
         let lm = CLLocationManager()
         lm.delegate = self
         return lm
     }()
     
-    override init() {
+    private override init() {
         super.init()
     }
 }
@@ -49,6 +53,7 @@ extension LocationInUsePermission: Permission {
         let status = authorizedStatus()
         switch status {
         case .notDetermined:
+            locationManager.delegate = self
             locationManager.requestWhenInUseAuthorization()
         default:
             completion(status == .authorized)
