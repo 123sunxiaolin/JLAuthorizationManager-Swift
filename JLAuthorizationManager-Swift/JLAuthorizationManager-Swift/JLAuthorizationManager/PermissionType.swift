@@ -30,5 +30,6 @@ public enum PermissionType {
     case siri
     case motion
     case bluetooth
+    case peripheralBluetooth
     case health
 }

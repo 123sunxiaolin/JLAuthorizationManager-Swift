@@ -2,41 +2,25 @@
 //  BluetoothPermission.swift
 //  JLAuthorizationManager-Swift
 //
-//  Created by Jacklin on 2019/1/10.
+//  Created by Jacklin on 2019/1/14.
 //  Copyright © 2019年 Jacklin. All rights reserved.
 //
 
 import Foundation
 import CoreBluetooth
 
+// please use singleton: `shared`
 class BluetoothPermission: BasePermission {
+    
+    static let shared = BluetoothPermission()
     
     private var completion: AuthorizedCompletion?
     
-    private lazy var defaults: UserDefaults = {
-        return .standard
+    private lazy var centerManager: CBCentralManager = {
+        return CBCentralManager(delegate: self, queue: nil)
     }()
     
-    private lazy var bluetoothManager: CBPeripheralManager = {
-        return CBPeripheralManager(delegate: self, queue: nil, options:[CBPeripheralManagerOptionShowPowerAlertKey: false])
-    }()
-    
-    /// wheather request bluetooth before or not
-    private var isRequestedBluetooth: Bool {
-        get {
-            return defaults.bool(forKey: Constants.UserDefaultsKeys.requestedBluetooth)
-        }
-        
-        set {
-            defaults.set(isRequestedBluetooth, forKey: Constants.UserDefaultsKeys.requestedBluetooth)
-            defaults.synchronize()
-        }
-    }
-
-    /// wheather wait for user to enable or disable bluetooth access or not
-    private var waitingForBluetooth: Bool = false
-    
-    override init() {
+    private override init() {
         super.init()
     }
 }
@@ -48,24 +32,19 @@ extension BluetoothPermission: Permission {
     }
     
     func authorizedStatus() -> AuthorizedStatus {
-        
-        guard isRequestedBluetooth else {
-            return .notDetermined
+        guard #available(iOS 10.0, *) else {
+            return .disabled
         }
         
-        // start requesting ...
-        startUpdateBluetoothStatus()
-        
-        let state = (bluetoothManager.state, CBPeripheralManager.authorizationStatus())
-        switch state {
-        case (.unsupported, _), (.poweredOff, _):
+        switch self.centerManager.state {
+        case .poweredOff, .unsupported:
             return .disabled
-        case (.unauthorized, _), (_, .denied), (_, .restricted):
+        case .unauthorized:
             return .unAuthorized
-        case (.poweredOn, .authorized):
-            return .authorized
-        default:
+        case .unknown, .resetting:
             return .notDetermined
+        case .poweredOn:
+            return .authorized
         }
     }
     
@@ -73,38 +52,17 @@ extension BluetoothPermission: Permission {
         
         self.completion = completion
         let status = authorizedStatus()
-        switch status {
-        case .notDetermined:
-            startUpdateBluetoothStatus()
-        default:
-            completion(status == .authorized)
-        }
+        completion(status == .authorized)
     }
+
 }
 
-// MARK: - Private
-extension BluetoothPermission {
-    
-    /// depend on user operation, start request bluetooth or not
-    private func startUpdateBluetoothStatus() {
-        guard !waitingForBluetooth
-            && bluetoothManager.state == .unknown else {
-            return
-        }
+// MARK: - CBCentralManagerDelegate
+extension BluetoothPermission: CBCentralManagerDelegate {
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
         
-        bluetoothManager.startAdvertising(nil)
-        bluetoothManager.stopAdvertising()
-        waitingForBluetooth = true
-        isRequestedBluetooth = true
-    }
-}
-
-// MARK: - CBPeripheralManagerDelegate
-extension BluetoothPermission: CBPeripheralManagerDelegate {
-    func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
-        waitingForBluetooth = false
         if let completion = self.completion {
-            completion(CBPeripheralManager.authorizationStatus() == .authorized)
+            completion(central.state == .poweredOn)
         }
     }
 }

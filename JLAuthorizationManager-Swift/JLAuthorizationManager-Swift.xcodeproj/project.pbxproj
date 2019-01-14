@@ -30,10 +30,11 @@
 		1B0CC97421E7424F00385C74 /* SpeechRecognizerPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CC97321E7424F00385C74 /* SpeechRecognizerPermission.swift */; };
 		1B0CC97621E743E700385C74 /* SiriPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CC97521E743E700385C74 /* SiriPermission.swift */; };
 		1B0CC97821E74F1F00385C74 /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CC97721E74F1E00385C74 /* NotificationPermission.swift */; };
-		1B0CC97A21E7758F00385C74 /* BluetoothPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CC97921E7758F00385C74 /* BluetoothPermission.swift */; };
 		1B0CC97C21E7816100385C74 /* MotionPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CC97B21E7816100385C74 /* MotionPermission.swift */; };
 		1B0CC97E21E78E1100385C74 /* HealthPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CC97D21E78E1100385C74 /* HealthPermission.swift */; };
 		1B0CC9AD21E9CC5500385C74 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0CC9AC21E9CC5500385C74 /* HealthKit.framework */; };
+		1BB6AFEE21EC3EE400C1577C /* BluetoothPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB6AFED21EC3EE300C1577C /* BluetoothPermission.swift */; };
+		1BB6AFF221EC5F7000C1577C /* BluetoothPeripheralPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB6AFF121EC5F7000C1577C /* BluetoothPeripheralPermission.swift */; };
 		BCB03C373EF4527D6C0F0E2F /* Pods_JLAuthorizationManager_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 249C3F9E26697632D78BA13D /* Pods_JLAuthorizationManager_Swift.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,11 +66,12 @@
 		1B0CC97321E7424F00385C74 /* SpeechRecognizerPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizerPermission.swift; sourceTree = "<group>"; };
 		1B0CC97521E743E700385C74 /* SiriPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiriPermission.swift; sourceTree = "<group>"; };
 		1B0CC97721E74F1E00385C74 /* NotificationPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermission.swift; sourceTree = "<group>"; };
-		1B0CC97921E7758F00385C74 /* BluetoothPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPermission.swift; sourceTree = "<group>"; };
 		1B0CC97B21E7816100385C74 /* MotionPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionPermission.swift; sourceTree = "<group>"; };
 		1B0CC97D21E78E1100385C74 /* HealthPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthPermission.swift; sourceTree = "<group>"; };
 		1B0CC9AB21E9C73F00385C74 /* JLAuthorizationManager-Swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "JLAuthorizationManager-Swift.entitlements"; sourceTree = "<group>"; };
 		1B0CC9AC21E9CC5500385C74 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		1BB6AFED21EC3EE300C1577C /* BluetoothPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPermission.swift; sourceTree = "<group>"; };
+		1BB6AFF121EC5F7000C1577C /* BluetoothPeripheralPermission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralPermission.swift; sourceTree = "<group>"; };
 		249C3F9E26697632D78BA13D /* Pods_JLAuthorizationManager_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JLAuthorizationManager_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -148,7 +150,8 @@
 				1B0CC97321E7424F00385C74 /* SpeechRecognizerPermission.swift */,
 				1B0CC97521E743E700385C74 /* SiriPermission.swift */,
 				1B0CC97721E74F1E00385C74 /* NotificationPermission.swift */,
-				1B0CC97921E7758F00385C74 /* BluetoothPermission.swift */,
+				1BB6AFED21EC3EE300C1577C /* BluetoothPermission.swift */,
+				1BB6AFF121EC5F7000C1577C /* BluetoothPeripheralPermission.swift */,
 				1B0CC97B21E7816100385C74 /* MotionPermission.swift */,
 				1B0CC97D21E78E1100385C74 /* HealthPermission.swift */,
 			);
@@ -290,6 +293,7 @@
 				1B0CC96A21E72C2000385C74 /* LocationInUsePermission.swift in Sources */,
 				1B0CC95521E5A19000385C74 /* JLAuthorizationManager.swift in Sources */,
 				1B0CC97621E743E700385C74 /* SiriPermission.swift in Sources */,
+				1BB6AFF221EC5F7000C1577C /* BluetoothPeripheralPermission.swift in Sources */,
 				1B0CC97221E73FFC00385C74 /* AppleMusicPermission.swift in Sources */,
 				1B0CC95B21E718DB00385C74 /* CameraPermission.swift in Sources */,
 				1B0CC95F21E7204500385C74 /* MicrophonePermission.swift in Sources */,
@@ -300,8 +304,8 @@
 				1B0CC95921E7148F00385C74 /* PermissionType.swift in Sources */,
 				1B0CC96C21E72ED400385C74 /* Constants.swift in Sources */,
 				1B0CC95721E6FD5B00385C74 /* BasePermission.swift in Sources */,
+				1BB6AFEE21EC3EE400C1577C /* BluetoothPermission.swift in Sources */,
 				1B0CC96E21E731A300385C74 /* LocationAlwaysPermission.swift in Sources */,
-				1B0CC97A21E7758F00385C74 /* BluetoothPermission.swift in Sources */,
 				1B0CC97C21E7816100385C74 /* MotionPermission.swift in Sources */,
 				1B0CC96421E725E500385C74 /* ContactPermission.swift in Sources */,
 			);

@@ -45,6 +45,8 @@ extension PermissionType {
             return "加速仪与陀螺仪/Motion"
         case .bluetooth:
             return "蓝牙/Bluetooth"
+        case .peripheralBluetooth:
+            return "外设蓝牙/PeripheralBluetooth"
         case .health:
             return "健康数据/Health"
         }
@@ -76,6 +78,7 @@ class ViewController: UIViewController {
                                            .siri,
                                            .motion,
                                            .bluetooth,
+                                           .peripheralBluetooth,
                                            .health]
 
     override func viewDidLoad() {
@@ -203,7 +206,13 @@ extension ViewController: UITableViewDelegate {
                 print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
             }
         case .bluetooth:
-            let permission = BluetoothPermission()
+            let permission = BluetoothPermission.shared
+            print("\(type.title) -> status:\(permission.authorizedStatus())")
+            permission.requestPermission { granted in
+                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
+            }
+        case .peripheralBluetooth:
+            let permission = BluetoothPeripheralPermission.shared
             print("\(type.title) -> status:\(permission.authorizedStatus())")
             permission.requestPermission { granted in
                 print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
