@@ -35,6 +35,7 @@
 		1BB6B04321EC965800C1577C /* PhotosPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB6B03121EC965800C1577C /* PhotosPermission.swift */; };
 		1BB6B04421EC965800C1577C /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB6B03221EC965800C1577C /* NotificationPermission.swift */; };
 		1BB6B04521EC965800C1577C /* ReminderPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB6B03321EC965800C1577C /* ReminderPermission.swift */; };
+		1BB6B04721ED73D700C1577C /* AuthorizationManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB6B04621ED73D700C1577C /* AuthorizationManagerViewController.swift */; };
 		BCB03C373EF4527D6C0F0E2F /* Pods_JLAuthorizationManager_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 249C3F9E26697632D78BA13D /* Pods_JLAuthorizationManager_Swift.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 		1BB6B03121EC965800C1577C /* PhotosPermission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotosPermission.swift; path = ../../JLAuthorizationManagerSwift/Permissions/PhotosPermission.swift; sourceTree = "<group>"; };
 		1BB6B03221EC965800C1577C /* NotificationPermission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationPermission.swift; path = ../../JLAuthorizationManagerSwift/Permissions/NotificationPermission.swift; sourceTree = "<group>"; };
 		1BB6B03321EC965800C1577C /* ReminderPermission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReminderPermission.swift; path = ../../JLAuthorizationManagerSwift/Permissions/ReminderPermission.swift; sourceTree = "<group>"; };
+		1BB6B04621ED73D700C1577C /* AuthorizationManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManagerViewController.swift; sourceTree = "<group>"; };
 		249C3F9E26697632D78BA13D /* Pods_JLAuthorizationManager_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JLAuthorizationManager_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -113,6 +115,7 @@
 				1BB6AFF321EC905D00C1577C /* JLAuthorizationManager */,
 				1B0CC94121E59C5700385C74 /* AppDelegate.swift */,
 				1B0CC94321E59C5700385C74 /* ViewController.swift */,
+				1BB6B04621ED73D700C1577C /* AuthorizationManagerViewController.swift */,
 				1B0CC94521E59C5700385C74 /* Main.storyboard */,
 				1B0CC94821E59C5900385C74 /* Assets.xcassets */,
 				1B0CC94A21E59C5900385C74 /* LaunchScreen.storyboard */,
@@ -290,6 +293,7 @@
 				1B0CC94221E59C5700385C74 /* AppDelegate.swift in Sources */,
 				1BB6B03B21EC965800C1577C /* ContactPermission.swift in Sources */,
 				1BB6B04121EC965800C1577C /* LocationInUsePermission.swift in Sources */,
+				1BB6B04721ED73D700C1577C /* AuthorizationManagerViewController.swift in Sources */,
 				1BB6B03421EC965800C1577C /* LocationAlwaysPermission.swift in Sources */,
 				1BB6B03921EC965800C1577C /* CameraPermission.swift in Sources */,
 				1BB6B02121EC963B00C1577C /* JLAuthorizationManager.swift in Sources */,

@@ -20,7 +20,8 @@ import Intents
 import CoreBluetooth
 import Accounts
 
-typealias PermissionCompletion = (Bool?) -> Void
+// General Usages
+typealias PermissionCompletion = (Bool) -> Void
 
 class JLAuthorizationManager: NSObject {
     
@@ -66,7 +67,7 @@ class JLAuthorizationManager: NSObject {
         case .bluetooth:
             requestBluetoothPermission(completion)
         case .notification:
-            print("需要单独处理！！")
+            print("暂不处理")
         default:
             print("暂不处理")
         }
@@ -234,7 +235,7 @@ extension JLAuthorizationManager {
     
     private func requestSiriPermission(_ completion: @escaping PermissionCompletion) {
         guard #available(iOS 10.0, *) else {
-            completion(nil)
+            completion(false)
             print("系统版本暂不支持该API")
             return
         }
