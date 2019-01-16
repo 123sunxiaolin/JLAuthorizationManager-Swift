@@ -19,7 +19,7 @@ class SpeechRecognizerPermission: BasePermission {
 // MARK: - Permission
 extension SpeechRecognizerPermission: Permission {
     var type: PermissionType {
-        return .appleMusic
+        return .speechRecognizer
     }
     
     func authorizedStatus() -> AuthorizedStatus {

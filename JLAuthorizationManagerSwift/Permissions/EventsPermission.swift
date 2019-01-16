@@ -47,10 +47,8 @@ extension EventsPermission: Permission {
                     completion(granted)
                 }
             }
-        case .authorized:
-            completion(true)
         default:
-            completion(false)
+            completion(status == .authorized)
         }
     }
 }
