@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = 'JLAuthorizationManagerSwift'
-    s.version      = '1.0.0'
+    s.version      = '1.0.1'
     s.summary      = 'In swift, a Project can provide uniform method for system authorization accesses! '
     s.homepage     = 'https://github.com/123sunxiaolin/JLAuthorizationManager-Swift'
     s.license      = 'MIT'
@@ -8,12 +8,12 @@ Pod::Spec.new do |s|
     s.platform     = :ios, '9.0'
     s.description  = '🔑 JLAuthorizationManagerSwift is a project to show all develop process authorization managers.'
     s.social_media_url   = "https://123sunxiaolin.github.io"
-    s.swift_version = '4.0'
+    s.swift_version = '4.2'
     s.source       = {:git => 'https://github.com/123sunxiaolin/JLAuthorizationManager-Swift.git', :tag => s.version}
     s.default_subspec = "All"
 
     s.subspec 'All' do |ss|
-        ss.source_files = 'JLAuthorizationManagerSwift/*'
+        ss.source_files = 'JLAuthorizationManagerSwift/Base/', 'JLAuthorizationManagerSwift/Permissions/'
     end
 
     s.subspec 'Base' do |ss|

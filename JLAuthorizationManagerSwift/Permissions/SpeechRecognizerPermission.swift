@@ -24,15 +24,20 @@ extension SpeechRecognizerPermission: Permission {
     
     func authorizedStatus() -> AuthorizedStatus {
         
-        let status = SFSpeechRecognizer.authorizationStatus()
-        switch status {
-        case .authorized:
-            return .authorized
-        case .restricted, .denied:
-            return .unAuthorized
-        case .notDetermined:
-            return .notDetermined
+        if #available(iOS 10.0, *) {
+            let status = SFSpeechRecognizer.authorizationStatus()
+            switch status {
+            case .authorized:
+                return .authorized
+            case .restricted, .denied:
+                return .unAuthorized
+            case .notDetermined:
+                return .notDetermined
+            }
+        } else {
+            return .disabled
         }
+        
     }
     
     func requestPermission(_ completion: @escaping AuthorizedCompletion) {
@@ -42,11 +47,16 @@ extension SpeechRecognizerPermission: Permission {
         let status = authorizedStatus()
         switch status {
         case .notDetermined:
-            SFSpeechRecognizer.requestAuthorization { aStatus in
-                self.safeAync {
-                    completion(status == .authorized)
+            if #available(iOS 10.0, *) {
+                SFSpeechRecognizer.requestAuthorization { aStatus in
+                    self.safeAync {
+                        completion(status == .authorized)
+                    }
                 }
+            } else {
+                completion(false)
             }
+            
         default:
             completion(status == .authorized)
         }

@@ -24,14 +24,19 @@ extension AppleMusicPermission: Permission {
     
     func authorizedStatus() -> AuthorizedStatus {
         
-        let status = MPMediaLibrary.authorizationStatus()
-        switch status {
-        case .authorized:
-            return .authorized
-        case .restricted, .denied:
-            return .unAuthorized
-        case .notDetermined:
-            return .notDetermined
+        if #available(iOS 9.3, *) {
+            let status = MPMediaLibrary.authorizationStatus()
+            switch status {
+            case .authorized:
+                return .authorized
+            case .restricted, .denied:
+                return .unAuthorized
+            case .notDetermined:
+                return .notDetermined
+            }
+            
+        } else {
+            return .disabled
         }
     }
     
@@ -42,11 +47,16 @@ extension AppleMusicPermission: Permission {
         let status = authorizedStatus()
         switch status {
         case .notDetermined:
-            MPMediaLibrary.requestAuthorization { aStatus in
-                self.safeAync {
-                    completion(aStatus == .authorized)
+            if #available(iOS 9.3, *) {
+                MPMediaLibrary.requestAuthorization { aStatus in
+                    self.safeAync {
+                        completion(aStatus == .authorized)
+                    }
                 }
+            } else {
+                completion(false)
             }
+            
         default:
             completion(status == .authorized)
         }

@@ -236,7 +236,7 @@ extension JLAuthorizationManager {
     }
     
     // MARK: - Contact
-    private func contactAuthorizedStatus() ->AuthorizedStatus {
+    private func contactAuthorizedStatus() -> AuthorizedStatus {
         if #available(iOS 9.0, *) {
             let status = CNContactStore.authorizationStatus(for: .contacts)
             switch status {
@@ -455,19 +455,24 @@ extension JLAuthorizationManager {
     // MARK: - SpeechRecognizer
     private func speechRsecognizerAuthorizedStatus() -> AuthorizedStatus {
         
-        let status = SFSpeechRecognizer.authorizationStatus()
-        switch status {
-        case .authorized:
-            return .authorized
-        case .restricted, .denied:
-            return .unAuthorized
-        case .notDetermined:
-            return .notDetermined
+        if #available(iOS 10.0, *) {
+            let status = SFSpeechRecognizer.authorizationStatus()
+            switch status {
+            case .authorized:
+                return .authorized
+            case .restricted, .denied:
+                return .unAuthorized
+            case .notDetermined:
+                return .notDetermined
+            }
+        } else {
+            return .disabled
         }
+        
     }
     
     private func requestSpeechRecognizerPermission(_ completion: @escaping PermissionCompletion) {
-        let authorizedStatus = SFSpeechRecognizer.authorizationStatus()
+        let authorizedStatus = speechRsecognizerAuthorizedStatus()
         if authorizedStatus == .notDetermined {
             SFSpeechRecognizer.requestAuthorization { status in
                 self.safeAync {
