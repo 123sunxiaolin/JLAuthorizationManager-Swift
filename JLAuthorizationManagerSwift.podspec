@@ -21,7 +21,8 @@ Pod::Spec.new do |s|
     end
 
     s.subspec 'AuthorizationManager' do |ss|
-        ss.source_files = 'JLAuthorizationManagerSwift/AuthorizationManager/*', 'JLAuthorizationManagerSwift/Base/Constants.swift', 'JLAuthorizationManagerSwift/AuthorizationManager/Base/PermissionType.swift'
+        ss.source_files = 'JLAuthorizationManagerSwift/AuthorizationManager/*'#, 'JLAuthorizationManagerSwift/Base/Constants.swift', 'JLAuthorizationManagerSwift/AuthorizationManager/Base/PermissionType.swift'
+        ss.dependency "JLAuthorizationManagerSwift/Base"
     end
 
     s.subspec 'Camera' do |ss|

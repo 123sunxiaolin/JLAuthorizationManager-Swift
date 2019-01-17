@@ -427,25 +427,35 @@ extension JLAuthorizationManager {
     // MARK: - AppleMusic
     private func appleMusicAuthorizedStatus() -> AuthorizedStatus {
         
-        let status = MPMediaLibrary.authorizationStatus()
-        switch status {
-        case .authorized:
-            return .authorized
-        case .restricted, .denied:
-            return .unAuthorized
-        case .notDetermined:
-            return .notDetermined
+        if #available(iOS 9.3, *) {
+            let status = MPMediaLibrary.authorizationStatus()
+            switch status {
+            case .authorized:
+                return .authorized
+            case .restricted, .denied:
+                return .unAuthorized
+            case .notDetermined:
+                return .notDetermined
+            }
+        } else {
+            return .disabled
         }
+        
     }
     
     private func requestAppleMusicPermission(_ completion: @escaping PermissionCompletion) {
-        let authorizedStatus = MPMediaLibrary.authorizationStatus()
+        let authorizedStatus = appleMusicAuthorizedStatus()
         if authorizedStatus == .notDetermined {
-            MPMediaLibrary.requestAuthorization { status in
-                self.safeAync {
-                    completion(status == .authorized)
+            if #available(iOS 9.3, *) {
+                MPMediaLibrary.requestAuthorization { status in
+                    self.safeAync {
+                        completion(status == .authorized)
+                    }
                 }
+            } else {
+                completion(false)
             }
+            
         } else {
             completion(authorizedStatus == .authorized)
         }
@@ -474,11 +484,16 @@ extension JLAuthorizationManager {
     private func requestSpeechRecognizerPermission(_ completion: @escaping PermissionCompletion) {
         let authorizedStatus = speechRsecognizerAuthorizedStatus()
         if authorizedStatus == .notDetermined {
-            SFSpeechRecognizer.requestAuthorization { status in
-                self.safeAync {
-                    completion(status == .authorized)
+            if #available(iOS 10.0, *) {
+                SFSpeechRecognizer.requestAuthorization { status in
+                    self.safeAync {
+                        completion(status == .authorized)
+                    }
                 }
+            } else {
+                completion(false)
             }
+            
         } else {
             completion(authorizedStatus == .authorized)
         }
@@ -531,21 +546,26 @@ extension JLAuthorizationManager {
         }
     }
     
-    @available(iOS 10.0, *)
     private func requestNotificationPermission(_ completion: @escaping PermissionCompletion) {
-        UNUserNotificationCenter.current().getNotificationSettings { setting in
-            if setting.authorizationStatus == .notDetermined {
-                UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound], completionHandler: { granted, _ in
+        
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().getNotificationSettings { setting in
+                if setting.authorizationStatus == .notDetermined {
+                    UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound], completionHandler: { granted, _ in
+                        self.safeAync {
+                            completion(granted)
+                        }
+                    })
+                } else {
                     self.safeAync {
-                        completion(granted)
+                        completion(setting.authorizationStatus == .authorized)
                     }
-                })
-            } else {
-                self.safeAync {
-                    
                 }
             }
+        } else {
+            completion(false)
         }
+        
         
     }
     
