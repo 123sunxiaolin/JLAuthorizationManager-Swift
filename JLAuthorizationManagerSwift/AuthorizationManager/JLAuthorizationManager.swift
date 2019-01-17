@@ -19,6 +19,7 @@ import Speech
 import Intents
 import CoreBluetooth
 import UserNotifications
+import HealthKit
 
 // General Usages
 typealias PermissionCompletion = (Bool) -> Void
@@ -68,8 +69,50 @@ class JLAuthorizationManager: NSObject {
             requestBluetoothPermission(completion)
         case .notification:
             requestNotificationPermission(completion)
+        case .health:
+            assert(false, "please use requestHealthPermission() method")
         default:
             print("暂不处理")
+        }
+        
+    }
+    
+    func requestHealthPermission(_ typesToShare: Set<HKSampleType>, typesToRead: Set<HKObjectType>, completion: @escaping PermissionCompletion) {
+        
+        let isSupportHealthKit = HKHealthStore.isHealthDataAvailable()
+        assert(isSupportHealthKit, "unsupport health data!")
+        
+        let healthStore = HKHealthStore()
+        
+        var statusForHealth: [HKAuthorizationStatus] = []
+        if typesToShare.count > 0 {
+            for oneShare in typesToShare {
+                let shareStatus = healthStore.authorizationStatus(for: oneShare)
+                statusForHealth.append(shareStatus)
+            }
+        }
+        
+        if typesToRead.count > 0 {
+            for oneRead in typesToRead {
+                let readStatus = healthStore.authorizationStatus(for: oneRead)
+                statusForHealth.append(readStatus)
+            }
+        }
+        // priority: notDetermined > unAuthorized > authorized
+        if statusForHealth.count > 0 {
+            if statusForHealth.contains(.notDetermined) {
+                
+                healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { granted, _ in
+                    self.safeAync {
+                        completion(granted)
+                    }
+                }
+                
+            } else if statusForHealth.contains(.sharingDenied) {
+                completion(false)
+            } else {
+                completion(true)
+            }
         }
         
     }

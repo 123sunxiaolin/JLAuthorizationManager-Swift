@@ -76,121 +76,10 @@ extension AuthorizationManagerViewController: UITableViewDelegate {
         guard indexPath.row < items.count else { return }
         
         let type = items[indexPath.row]
-        JLAuthorizationManager.shared.requestPermission(type) { granted in
-            print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-        }
-        
-        /*switch type {
-        case .camera:
-            JLAuthorizationManager.shared.requestPermission(.camera) { granted in
-                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-            }
-        case .audio:
+        if type == .health {
             
-            let permission = AudioPermission()
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
-            permission.requestPermission { granted in
-                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-            }
-        case .notification:
-            let permission = NotificationPermission()
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
-            permission.asyncFetchAuthorizedStatus { staus in
-                print("\(type.title) -> async fetch status:\(permission.authorizedStatus())")
-            }
-            
-            permission.requestPermission { granted in
-                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-            }
-        case .photoLibrary:
-            let permission = PhotosPermission()
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
-            permission.requestPermission { granted in
-                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-            }
-        case .cellularNetwork:
-            let permission = CellularNetworkPermission()
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
-            permission.requestPermission { granted in
-                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-            }
-        case .microphone:
-            let permission = MicrophonePermission()
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
-            permission.requestPermission { granted in
-                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-            }
-        case .contact:
-            let permission = ContactPermission()
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
-            permission.requestPermission { granted in
-                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-            }
-        case .events:
-            let permission = EventsPermission()
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
-            permission.requestPermission { granted in
-                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-            }
-        case .reminder:
-            let permission = ReminderPermission()
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
-            permission.requestPermission { granted in
-                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-            }
-        case .locationInUse:
-            let permission = LocationInUsePermission.shared
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
-            permission.requestPermission { granted in
-                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-            }
-        case .locationInAlways:
-            let permission = LocationAlwaysPermission.shared
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
-            permission.requestPermission { granted in
-                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-            }
-        case .appleMusic:
-            let permission = AppleMusicPermission()
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
-            permission.requestPermission { granted in
-                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-            }
-        case .speechRecognizer:
-            let permission = SpeechRecognizerPermission()
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
-            permission.requestPermission { granted in
-                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-            }
-        case .siri:
-            let permission = SiriPermission()
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
-            permission.requestPermission { granted in
-                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-            }
-        case .motion:
-            let permission = MotionPermission.shared
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
-            permission.requestPermission { granted in
-                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-            }
-        case .bluetooth:
-            let permission = BluetoothPermission.shared
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
-            permission.requestPermission { granted in
-                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-            }
-        case .peripheralBluetooth:
-            let permission = BluetoothPeripheralPermission.shared
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
-            permission.requestPermission { granted in
-                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
-            }
-        case .health:
             let runningType = HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)
-            //let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount)
             let runningSampleType = HKSampleType.quantityType(forIdentifier: .distanceWalkingRunning)
-            //let stepCountSampleType = HKSampleType.quantityType(forIdentifier: .stepCount)
             var typesToShare: Set<HKSampleType> = []
             var typesToRead: Set<HKObjectType> = []
             if let aRunningType = runningType,
@@ -203,12 +92,14 @@ extension AuthorizationManagerViewController: UITableViewDelegate {
                 //typesToShare.insert(aStepCountSampleType)
             }
             
-            let permission = HealthPermission(typesToShare, typesToRead: typesToRead)
-            print("\(type.title) -> status:\(permission.authorizedStatus())")
-            permission.requestPermission { granted in
+            JLAuthorizationManager.shared.requestHealthPermission(typesToShare, typesToRead: typesToRead) { granted in
                 print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
             }
-        }*/
-        
+            
+        } else {
+            JLAuthorizationManager.shared.requestPermission(type) { granted in
+                print(granted ? "已授权 -> \(type.title)" : "未授权 -> \(type.title)")
+            }
+        }
     }
 }
