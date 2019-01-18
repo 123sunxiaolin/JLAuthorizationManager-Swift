@@ -1,0 +1,13 @@
+use_frameworks!
+
+target 'JLAuthorizationManagerSwift_Example' do
+  pod 'JLAuthorizationManagerSwift', :path => '../'
+
+  ## Lint
+  pod 'SwiftLint'
+  
+  #target 'JLAuthorizationManagerSwift_Tests' do
+  #inherit! :search_paths
+  #end
+  
+end
