@@ -59,10 +59,10 @@ extension LocationAlwaysPermission: Permission {
         let hasLocationAlwaysUseKey: Bool = !Bundle.main.object(forInfoDictionaryKey: Constants.InfoPlistKeys.locationAlways).isNil
         assert(hasLocationAlwaysUseKey, Constants.InfoPlistKeys.locationAlways + " not found in Info.plist.")
         
-        self.completion = completion
         let status = authorizedStatus()
         switch status {
         case .notDetermined:
+            self.completion = completion
             if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
                 defaults.set(true, forKey: Constants.UserDefaultsKeys.requestedInUseToAlwaysUpgrade)
                 defaults.synchronize()
