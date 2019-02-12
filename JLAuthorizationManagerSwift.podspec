@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'JLAuthorizationManagerSwift'
-  s.version          = '1.0.3'
+  s.version          = '1.0.4'
   s.summary          = 'In swift, a Project can provide uniform method for system authorization accesses! '
   s.description      = <<-DESC
 In swift, a Project can provide uniform method for system authorization accesses!
