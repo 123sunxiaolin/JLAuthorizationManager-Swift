@@ -125,7 +125,7 @@ extension MotionPermission {
                     status = .authorized
                 }
             } else {
-                status = .authorized
+                status = .unAuthorized
             }
             
             self?.safeAync {

@@ -19,9 +19,24 @@ module.exports = {
   ],
 
   scopes: [
-    {name: 'Authorization'},
-    {name: 'photoPermission'},
-    {name: 'notificationPermission'},
+    {name: 'Podspec'},
+    {name: 'AuthorizationManager'},
+    {name: 'Base'},
+    {name: 'Camera'},
+    {name: 'Microphone'},
+    {name: 'Notification'},
+    {name: 'Photos'},
+    {name: 'CellularNetwork'},
+    {name: 'Contact'},
+    {name: 'Calendar'},
+    {name: 'Reminder'},
+    {name: 'Location'},
+    {name: 'AppleMusic'},
+    {name: 'SpeechRecognizer'},
+    {name: 'Siri'},
+    {name: 'Motion'},
+    {name: 'Bluetooth'},
+    {name: 'Health'},
   ],
 
   // override the messages, defaults are as follows
