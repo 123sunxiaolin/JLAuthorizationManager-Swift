@@ -38,7 +38,8 @@ public class JLAuthorizationManager: NSObject {
         return lm
     }()
     
-    public func requestPermission(_ type: PermissionType, completion: @escaping PermissionCompletion) {
+    public func requestPermission(_ type: PermissionType,
+                                  completion: @escaping PermissionCompletion) {
         
         switch type {
         case .camera:
@@ -77,7 +78,9 @@ public class JLAuthorizationManager: NSObject {
         
     }
     
-    public func requestHealthPermission(_ typesToShare: Set<HKSampleType>, typesToRead: Set<HKObjectType>, completion: @escaping PermissionCompletion) {
+    public func requestHealthPermission(_ typesToShare: Set<HKSampleType>,
+                                        typesToRead: Set<HKObjectType>,
+                                        completion: @escaping PermissionCompletion) {
         
         let isSupportHealthKit = HKHealthStore.isHealthDataAvailable()
         assert(isSupportHealthKit, "unsupport health data!")
