@@ -9,7 +9,7 @@
 
 [Objective-C 版本 请戳这](https://github.com/123sunxiaolin/JLAuthorizationManager)
 
-🔑 **JLAuthorizationManager** is a **simple**, **lightWeight**, **easy-to-use**, **complete**, **thread-safety** permission lib for iOS  developers to use.
+🔑 **JLAuthorizationManagerSwift** is a **simple**, **lightWeight**, **easy-to-use**, **complete**, **thread-safety** permission lib for iOS  developers to use.
 
 
 ## Features
